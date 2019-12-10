@@ -30,7 +30,8 @@ connectToDB();
 const usersRouter = require('./routes/user');
 const settingsRouter = require('./routes/settings');
 const stockRouter = require('./routes/stock');
-// const authRouter = require('./routes/auth')
+const recipesRouter = require('./routes/recipes');
+
 
 const app = express();
 
@@ -50,6 +51,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/user', usersRouter);
 app.use('/settings', settingsRouter);
 app.use('/stock', stockRouter);
+app.use('/recipes', recipesRouter);
 
 // mongoose
 

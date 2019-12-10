@@ -1,8 +1,10 @@
 import express from 'express';
-import {getRecipes} from '../controllers/recipes';
+import auth from '../middleware/auth';
+import {getAllRecipes, getFilteredRecipes} from '../controllers/recipes';
 let router = express.Router();
 
-router.get('/', getRecipes);
+router.get('/all', auth, getAllRecipes);
+router.get('/filtered', auth, getFilteredRecipes);
 
 
 module.exports = router;
