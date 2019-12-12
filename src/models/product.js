@@ -1,15 +1,18 @@
 import {Schema, model} from "mongoose";
 
 const productSchema = new Schema({
-  product_name: String,
-  product_code: String,
-  quantity: String,
-  ingredients: [String],
-  tags: [String],
-  countries: [String],
-  stores: [String],
-  brands: [String],
-  categories: [String]
+  id: String,
+  name: String,
+  aisle: String,
+  image: String,
+  consitency: String,
+  original: String,
+  originalString: String,
+  originalName: String,
+  amount: Number,
+  unit: String,
+  meta: [String],
+  measures: [{}]
 });
 
 const Product = new model('Product', productSchema);

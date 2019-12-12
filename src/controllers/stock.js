@@ -1,26 +1,31 @@
 import {Product} from '../models/product';
-import {Stock} from '../models/stock'
+import {Stock} from '../models/stock';
 import {errorHandler} from '../helpers/errorHandler';
 
 export async function addToStock(req, res){
   try{
     
+    const quantityToAdd = parseInt(req.body.quantity || 1);
     let stock = await Stock.findOne({userId: req.user._id});
     if (!stock) stock = new Stock ({userId: req.user._id});
 
-    let productToAdd = await Product.findOne({product_code: req.body.barcode});
+    const productToAdd = await Product.findOne({id: req.body.barcode});
+    if (!productToAdd) return res.send('No product found');
     let found = false;
     for (let product of stock.products){
       if (product.productId.toString() ===  productToAdd._id.toString()){
-        product.quantity += req.body.quantity;
+        product.quantity += quantityToAdd;
         found = true;
       }
       if (found) break;
     }
+    
 
     if(!found){
       stock.products.push({
-        quantity: req.body.quantity,
+        product_name: productToAdd.name,
+        quantity: quantityToAdd,
+        product_id: productToAdd.id,
         productId: productToAdd._id
       });
     }

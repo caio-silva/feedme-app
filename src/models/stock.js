@@ -8,6 +8,7 @@ const stockSchema = new Schema({
         ref: 'User'
     },
     products: [{
+        product_name: String,
         quantity: Number,
         productId: {
             type: Schema.Types.ObjectId,
@@ -19,6 +20,10 @@ const stockSchema = new Schema({
           }
     }]
 });
+
+stockSchema.methods.getIng = function(){
+
+}
 
 const Stock = new model('Stock', stockSchema);
 

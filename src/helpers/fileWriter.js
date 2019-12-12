@@ -7,7 +7,7 @@ export async function saveToJsonFile(data, name){
   if (name != undefined) fileName = name;
   
   writeFile(fileName, JSON.stringify(data), function (ex) {
-    if (ex) errorHandler(ex, 'saveToJsonFile');
+    if (ex) return errorHandler(ex, 'saveToJsonFile');
     console.log(`File saved: ${fileName}`);
   });
 }

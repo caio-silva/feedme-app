@@ -4,34 +4,13 @@ import express from 'express';
 import path from 'path';
 import {connectToDB} from './helpers/dbConnection';
 import {config} from 'dotenv';
+import usersRouter from'./routes/user';
+import settingsRouter from './routes/settings';
+import stockRouter from'./routes/stock';
+import recipesRouter from './routes/recipes';
 
 config();
 connectToDB();
-//
-// import {Recipe} from './models/recipe'
-
-// async function p(){
-//   let sset = new Set();
-//   let xset = new Set();
-//   let recipes = await Recipe.find();
-//   // console.log(recipes[0])
-//   for (let i=0;i<recipes.length;i++){
-//     sset.add(recipes[i].readyInMinutes);
-//     xset.add(recipes[i].cookingMinutes);
-//   }
-  
-//   console.log(sset);
-//   console.log(xset)
-// }
-// p();
-//
-
-// routes setup
-const usersRouter = require('./routes/user');
-const settingsRouter = require('./routes/settings');
-const stockRouter = require('./routes/stock');
-const recipesRouter = require('./routes/recipes');
-
 
 const app = express();
 
@@ -44,16 +23,13 @@ app.set('view engine', 'pug');
 // app settings
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use('/', indexRouter);
+// routes setup
 app.use('/user', usersRouter);
 app.use('/settings', settingsRouter);
 app.use('/stock', stockRouter);
 app.use('/recipes', recipesRouter);
-
-// mongoose
 
 
 // catch 404 and forward to error handler

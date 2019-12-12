@@ -1,5 +1,6 @@
-# Dependency directories
+# ignore directories
 node_modules/
+dist/
 json/
 .vscode/
 .env
