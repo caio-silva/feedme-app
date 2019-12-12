@@ -14,7 +14,7 @@ export async function getAllRecipes(req, res){
   */
     try{
       const recipes = await Recipe.find();
-      if (!recipes) return res.send('No recipes found in database.');
+      if (!recipes) return res.json({totalRecipes: 0, recipes: []});
       return res.send(_.assign({totalRecipes: recipes.length}, {recipes: [recipes]}));
     }
     catch(ex){
@@ -23,24 +23,19 @@ export async function getAllRecipes(req, res){
 }
 
 export async function getFilteredRecipes(req, res){
-   /*
+  /*
   * getFilteredRecipes accessed via GET. it return a json object with all
   * matching recipes based on User.settings. 
   * returns {totalRecipes: number, recipes: [{recipes]}}
   */
   try{
-    //load settings from User
     let {settings} = await User.findById(req.user._id);
     const userSettings = _.pick(settings, ['vegetarian', 'vegan', 'glutenFree', 'dairyFree']);
-    //load product in stock
-    // const {products} = await Stock.findOne({userId: req.user._id}) ;
-  
-    //apply filters to search
     const recipes = await Recipe
     .find()
     .where(userSettings);
-    if (!recipes) return res.send('No recipes found in database.');
-    
+
+    if (!recipes) return res.json({totalRecipes: 0, recipes: []});
     return res.send(_.assign({totalRecipes: recipes.length}, {recipes: [recipes]}));
   }
   catch(ex){
@@ -49,6 +44,14 @@ export async function getFilteredRecipes(req, res){
 }
 
 export async function getFilteredRecipesOption(req, res){
+  /*
+  * getFilteredRecipesOption accessed via GET. it return a json object with all
+  * matching recipes based on User.prototype.settings and Stock.prototype.products
+  * returns {totalRecipes: number, recipes: [{recipes]}}
+  * 
+  *       TO BE FINISHED
+  * 
+  */
   try{
     
     const recipes = await Recipe
@@ -65,6 +68,11 @@ export async function getFilteredRecipesOption(req, res){
 }
 
 export async function fetchRecipes(tag){
+  /* 
+  * query external api in search of recipes with
+  * the given tag, if any found  they are added
+  * to db and to a json file in json/DDMMYYYY-HHMM.json
+  */
   let options = {
 	  method: 'GET',
 	  url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random',
@@ -91,6 +99,9 @@ export async function fetchRecipes(tag){
 }
 
 export async function addRecipe(recipe){
+  /*
+  * adds recipes to db if it doesnt exists.
+  */
   try{
     let found = await Recipe.findOne({id: recipe.id});
     if (found) return found;

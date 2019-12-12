@@ -2,7 +2,11 @@ import jwt from 'jsonwebtoken';
 import {User} from '../models/user';
 
 module.exports = async function (req, res, next){
-  const token = req.header('x-auth-token');
+  /*  
+  * verify whether x-auth-token (jwb) is valid and it
+  * verify user against databse.
+  */
+  const token = req.header('');
   if (!token) return res.status(401).send('Access denied. No token provided.');
 
   try{

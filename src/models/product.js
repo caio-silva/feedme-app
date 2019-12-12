@@ -15,6 +15,8 @@ const productSchema = new Schema({
   measures: [{}]
 });
 
-const Product = new model('Product', productSchema);
+const Product = new model(
+  /* Product model */
+  'Product', productSchema);
 
 export {Product};

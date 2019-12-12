@@ -37,6 +37,8 @@ const recipeSchema = new Schema ({
   analyzedInstructions: [{}]
 });
 
-const Recipe = new model('Recipe', recipeSchema);
+const Recipe = new model(
+  /* Recipes model */
+  'Recipe', recipeSchema);
 
 export {Recipe};

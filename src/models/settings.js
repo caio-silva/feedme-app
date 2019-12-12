@@ -1,6 +1,7 @@
 import {Schema} from "mongoose";
 
 export const settingSchema = new Schema ({
+  /* settings Schema */
   vegetarian: {
     type: Boolean,
     default: false

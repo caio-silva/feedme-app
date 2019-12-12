@@ -25,6 +25,8 @@ stockSchema.methods.getIng = function(){
 
 }
 
-const Stock = new model('Stock', stockSchema);
+const Stock = new model(
+    /* Stock model */
+    'Stock', stockSchema);
 
 export {Stock};

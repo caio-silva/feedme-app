@@ -37,6 +37,8 @@ userSchema.methods.generateAuthToken = function(){
   return token;
 }
 
-const User = new model('User', userSchema);
+const User = new model(
+  /* User model */
+  'User', userSchema);
 
 export {User};
