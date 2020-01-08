@@ -32,7 +32,7 @@ const userSchema = new Schema ({
 
 });
 
-userSchema.methods.generateAuthToken = function(){
+userSchema.methods.generateAuthToken = async function(){
   const token = jwt.sign({ _id: this._id},process.env.JWT); 
   return token;
 }

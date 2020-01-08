@@ -26,10 +26,10 @@ app.use(express.urlencoded({ extended: true }));
 // app.use(express.static(path.join(__dirname, 'public')));
 
 // routes setup
-app.use('/user', usersRouter);
-app.use('/settings', settingsRouter);
-app.use('/stock', stockRouter);
-app.use('/recipes', recipesRouter);
+app.use('/api/user', usersRouter);
+app.use('/api/settings', settingsRouter);
+app.use('/api/stock', stockRouter);
+app.use('/api/recipes', recipesRouter);
 
 
 // catch 404 and forward to error handler

@@ -1,6 +1,7 @@
 import { Schema, model } from "mongoose";
 
 const recipeSchema = new Schema ({
+  ingredientsList: [String],
   vegetarian: Boolean,
   vegan: Boolean,
   glutenFree: Boolean,

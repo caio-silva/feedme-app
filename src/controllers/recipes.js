@@ -5,62 +5,78 @@ import {errorHandler} from '../helpers/errorHandler';
 import {saveToJsonFile} from '../helpers/fileWriter';
 import _ from 'lodash';
 import rp from 'request-promise';
+import { Product } from '../models/product';
 
 export async function getAllRecipes(req, res){
   /*
-  * getAllRecipes accessed via GET. it return a json object with all
-  * data on recipes collection .
-  * return {totalRecipes: number, recipes: [{recipes]}}
+  * getAllRecipes accessed via GET. returns a json object with all
+  * data in recipes collection.
+  * 
+  * @return {totalRecipes: number, recipes: [recipes]}
+  * 
   */
     try{
       const recipes = await Recipe.find();
       if (!recipes) return res.json({totalRecipes: 0, recipes: []});
-      return res.send(_.assign({totalRecipes: recipes.length}, {recipes: [recipes]}));
+      return res.json({totalRecipes: recipes.length, recipes: recipes});
     }
     catch(ex){
-      errorHandler(ex, 'getRecipes');
+      errorHandler(ex, 'getAllRecipes');
     }
 }
 
 export async function getFilteredRecipes(req, res){
   /*
-  * getFilteredRecipes accessed via GET. it return a json object with all
-  * matching recipes based on User.settings. 
-  * returns {totalRecipes: number, recipes: [{recipes]}}
+  * getFilteredRecipes accessed via GET. it returns a json object with all
+  * matching recipes based on User.settings and in Stock products
+  * 
+  * @returns {totalRecipes: number, recipes: [recipes]}
+  * 
   */
   try{
-    let {settings} = await User.findById(req.user._id);
-    const userSettings = _.pick(settings, ['vegetarian', 'vegan', 'glutenFree', 'dairyFree']);
-    const recipes = await Recipe
-    .find()
-    .where(userSettings);
-
+    const {settings} = await User.findById(req.user._id);
+    const {_id, ...userSettings} = settings._doc;
+    const stock = await Stock.findOne({userId: req.user._id});
+    if (!stock) return res.json({msg: 'No products in stock', totalRecipes: 0, recipes: []});
+    
+    let prodInStockList = [];
+    stock.products.forEach(product => {
+      prodInStockList.push(product.product_name);
+    });
+    
+    let recipes = await 
+      Recipe
+        .find({$expr:{$setIsSubset:["$ingredientsList",prodInStockList]}},{_id:0})
+        .where(userSettings);
+    
     if (!recipes) return res.json({totalRecipes: 0, recipes: []});
-    return res.send(_.assign({totalRecipes: recipes.length}, {recipes: [recipes]}));
+    return res.json({totalRecipes: recipes.length, recipes: recipes});
   }
   catch(ex){
     errorHandler(ex, 'getFilteredRecipes');
   }
 }
 
-export async function getFilteredRecipesOption(req, res){
+export async function queryWithOption(req, res){
   /*
-  * getFilteredRecipesOption accessed via GET. it return a json object with all
-  * matching recipes based on User.prototype.settings and Stock.prototype.products
-  * returns {totalRecipes: number, recipes: [{recipes]}}
+  *                  TO BE FINISHED
+  *
+  * queryWithOption accessed via POST. 
+  * It returns a json object with all matching recipes based on 
+  * User.settings and in Stock products
   * 
-  *       TO BE FINISHED
+  * @returns {totalRecipes: number, recipes: [{recipes]}}
   * 
   */
   try{
-    
     const recipes = await Recipe
     .find()
-    .where(req.body.options)
+    .where()
     .populate();
-    if (!recipes) return res.send('No recipes found in database.');
+
+    if (!recipes) return res.json({totalRecipes: 0, recipes: []});
     
-    res.send(_.assign({totalRecipes: recipes.length}, {recipes: [recipes]}));
+    return res.json({totalRecipes: recipes.length, recipes: [recipes]});
   }
   catch(ex){
       errorHandler(ex, 'getFilteredRecipesOption');
@@ -72,6 +88,8 @@ export async function fetchRecipes(tag){
   * query external api in search of recipes with
   * the given tag, if any found  they are added
   * to db and to a json file in json/DDMMYYYY-HHMM.json
+  * 
+  * @return {tag: tag, addedList: [addedList], resultList: [resultList] }
   */
   let options = {
 	  method: 'GET',
@@ -85,13 +103,22 @@ export async function fetchRecipes(tag){
  };
 
   try{
-	
     let results = await rp(options);
     results = results.recipes;
-    saveToJsonFile(results);  
+
+    // just for dev
+    saveToJsonFile(results);
+
+    let resultList = [];
+    let addedList =[];
+    let result;
+
     for (let item of results){
-      await addRecipe(item);
+      result = await addRecipe(item);
+      if (result != -1) addedList.push({title: item.title, id: item.id});
+      resultList.push({title: item.title, id: item.id});
     }
+    return  ({tag: tag, addedList: addedList, resultList: resultList });
   }
   catch(ex){
 	  errorHandler(ex, 'fetchRecipes');
@@ -101,12 +128,13 @@ export async function fetchRecipes(tag){
 export async function addRecipe(recipe){
   /*
   * adds recipes to db if it doesnt exists.
+  * uses {id: recipe.id} to find recipe in database
   */
   try{
     let found = await Recipe.findOne({id: recipe.id});
-    if (found) return found;
+    if (found) return -1;
 
-    let newRecipes = new Recipe( 
+    let newRecipe = new Recipe( 
       _.pick(
         recipe,
           [ 
@@ -148,7 +176,7 @@ export async function addRecipe(recipe){
       )
     );
         
-    return await newRecipes.save();
+    return await newRecipe.save();
       
   }
   catch(ex){

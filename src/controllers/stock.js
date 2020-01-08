@@ -3,14 +3,22 @@ import {Stock} from '../models/stock';
 import {errorHandler} from '../helpers/errorHandler';
 
 export async function addToStock(req, res){
+  /*
+  * addToStock accessed via POST. returns a json object with
+  * user Stock updated.
+  * 
+  * @body { barcode: number, quantity:  number}
+  * 
+  * @return {totalProducts: stock.products.length, products: stock.products}
+  * 
+  */
   try{
-    
     const quantityToAdd = parseInt(req.body.quantity || 1);
     let stock = await Stock.findOne({userId: req.user._id});
     if (!stock) stock = new Stock ({userId: req.user._id});
 
     const productToAdd = await Product.findOne({id: req.body.barcode});
-    if (!productToAdd) return res.send('No product found');
+    if (!productToAdd) return res.json({msg: `No product with barcode ${req.body.barcode} found`});
     let found = false;
     for (let product of stock.products){
       if (product.productId.toString() ===  productToAdd._id.toString()){
@@ -30,8 +38,7 @@ export async function addToStock(req, res){
       });
     }
     await stock.save();
-    // change renponse to something else
-    return res.send(stock.products);
+    return res.json({totalProducts: stock.products.length, products: stock.products});
   }
   catch(ex){
     errorHandler(ex, 'addToStock');
@@ -39,11 +46,18 @@ export async function addToStock(req, res){
 }
 
 export async function getStock(req, res){
+    /*
+  * getStock accessed via POST. returns a json object with
+  * user current Stock.
+  * 
+  * @return {totalProducts: stock.products.length, products: stock.products}
+  * 
+  */
   try{
-    
     const stock = await Stock.findOne({userId: req.user._id});
     if (!stock) return res.send({products: ''});
-    return res.send(stock);
+    return res.json({totalProducts: stock.products.length, products: stock.products});
+    
   }
   catch(ex){
     errorHandler(ex, 'getStock');

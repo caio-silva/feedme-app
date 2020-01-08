@@ -21,10 +21,6 @@ const stockSchema = new Schema({
     }]
 });
 
-stockSchema.methods.getIng = function(){
-
-}
-
 const Stock = new model(
     /* Stock model */
     'Stock', stockSchema);
