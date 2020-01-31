@@ -1,4 +1,4 @@
-import {Schema, model} from "mongoose";
+import { Schema, model } from "mongoose";
 
 const productSchema = new Schema({
   id: String,
@@ -13,10 +13,10 @@ const productSchema = new Schema({
   unit: String,
   meta: [String],
   measures: [{}]
-});
+}, { database: 'feedme' });
 
 const Product = new model(
   /* Product model */
   'Product', productSchema);
 
-export {Product};
+export { Product };

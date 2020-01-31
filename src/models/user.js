@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
-import {Schema, model} from 'mongoose';
-import {settingSchema} from '../models/settings';
+import { Schema, model } from 'mongoose';
+import { settingSchema } from '../models/settings';
 
-const userSchema = new Schema ({
+const userSchema = new Schema({
   name: {
     type: String,
     minlength: 3,
@@ -11,7 +11,7 @@ const userSchema = new Schema ({
   },
   email: {
     type: String,
-    minlength: 10,
+    minlength: 3,
     maxlength: 50,
     required: true,
     unique: true
@@ -22,18 +22,18 @@ const userSchema = new Schema ({
     max: 500,
     required: true
   },
-  settings:{
+  settings: {
     type: settingSchema
   },
-  created: { 
-    type: Date, 
-    default: Date.now 
+  created: {
+    type: Date,
+    default: Date.now
   }
 
-});
+}, { database: 'feedme' });
 
-userSchema.methods.generateAuthToken = async function(){
-  const token = jwt.sign({ _id: this._id},process.env.JWT); 
+userSchema.methods.generateAuthToken = function () {
+  const token = jwt.sign({ _id: this._id, name: this.name, email: this.email }, process.env.JWT);
   return token;
 }
 
@@ -41,4 +41,4 @@ const User = new model(
   /* User model */
   'User', userSchema);
 
-export {User};
+export { User };

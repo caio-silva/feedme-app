@@ -1,35 +1,41 @@
 {
   "name": "feedme",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node ./dist/app.js",
-    "startNodemon": "nodemon --ignore json/ --exec babel-node src/app.js",
+    "client-install": "npm install --prefix client",
+    "start": "node ./dist/server.js",
+    "server": "nodemon --ignore json/ --exec babel-node src/server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "build": "babel ./src --out-dir dist",
-    "test": "babel-node -- ./src/test.js"
+    "test": "babel-node -- ./src/test.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [],
-  "author": "",
+  "author": "Caio Silva",
   "license": "ISC",
   "dependencies": {
     "@babel/polyfill": "^7.7.0",
     "bcrypt": "^3.0.7",
-    "bootstrap": "^4.4.1",
+    "body-parser": "^1.19.0",
+    "concurrently": "^5.1.0",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-validator": "^6.3.1",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
-    "mongoose": "^5.7.14",
+    "mongoose": "^5.8.5",
     "pug": "^2.0.4",
     "request": "^2.88.0",
     "request-promise": "^4.2.5"
   },
   "devDependencies": {
-    "@babel/cli": "^7.7.5",
-    "@babel/core": "^7.7.5",
-    "@babel/node": "^7.7.4",
-    "@babel/preset-env": "^7.7.6"
+    "@babel/cli": "^7.7.7",
+    "@babel/core": "^7.7.7",
+    "@babel/node": "^7.7.7",
+    "@babel/preset-env": "^7.7.7"
   }
 }

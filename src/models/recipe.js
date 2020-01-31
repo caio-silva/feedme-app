@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const recipeSchema = new Schema ({
+const recipeSchema = new Schema({
   ingredientsList: [String],
   vegetarian: Boolean,
   vegan: Boolean,
@@ -17,7 +17,7 @@ const recipeSchema = new Schema ({
   ketogenic: Boolean,
   whole30: Boolean,
   sourceUrl: String,
-  spoonacularSourceUrl: String, 
+  spoonacularSourceUrl: String,
   aggregateLikes: Number,
   spoonacularScore: Number,
   healthScore: Number,
@@ -36,10 +36,10 @@ const recipeSchema = new Schema ({
   winePairing: [{}],
   instructions: String,
   analyzedInstructions: [{}]
-});
+}, { database: 'feedme' });
 
 const Recipe = new model(
   /* Recipes model */
   'Recipe', recipeSchema);
 
-export {Recipe};
+export { Recipe };

@@ -1,6 +1,6 @@
-import {Schema, model} from "mongoose";
-import {User} from '../models/user';
-import {Product} from '../models/product';
+import { Schema, model } from "mongoose";
+import { User } from '../models/user';
+import { Product } from '../models/product';
 
 const stockSchema = new Schema({
     userId: {
@@ -14,15 +14,15 @@ const stockSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'Product'
         },
-        created: { 
-            type: Date, 
-            default: Date.now 
-          }
+        created: {
+            type: Date,
+            default: Date.now
+        }
     }]
-});
+}, { database: 'feedme' });
 
 const Stock = new model(
     /* Stock model */
     'Stock', stockSchema);
 
-export {Stock};
+export { Stock };
