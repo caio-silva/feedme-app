@@ -8,7 +8,7 @@
   },
   "scripts": {
     "client-install": "npm install --prefix client",
-    "start": "nodemon --ignore json/ --exec babel-node src/server.js",
+    "start": "babel-node src/server.js",
     "server": "nodemon --ignore json/ --exec babel-node src/server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
