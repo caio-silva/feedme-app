@@ -17,7 +17,7 @@ connectToDB();
 const app = express();
 // app.use(cors());
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 5000;
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -31,13 +31,12 @@ app.use('/api/stock', stockApiRouter);
 app.use('/api/recipes', recipesApiRouter);
 
 if (process.env.NODE_ENV === 'production') {
+  //set static folder
   app.use(express.static('client/build'));
-  app.get('/*', (req, res) => {
-    console.log(req)
-    // res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
-    res.sendFile(path.join(__dirname, './client/build/index.html'));
-  });
 }
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+});
 
 
 
