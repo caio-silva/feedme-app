@@ -30,16 +30,6 @@ app.use('/api/settings', settingsApiRouter);
 app.use('/api/stock', stockApiRouter);
 app.use('/api/recipes', recipesApiRouter);
 
-if (process.env.NODE_ENV === 'production') {
-  //set static folder
-  app.use(express.static('client/build'));
-}
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-});
-
-
-
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
@@ -50,6 +40,15 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+if (process.env.NODE_ENV === 'production') {
+  //set static folder
+  app.use(express.static('client/build'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 app.listen(PORT, () => { console.log(`Server running and listening on port ${PORT}`) })
 //module.exports = app;
