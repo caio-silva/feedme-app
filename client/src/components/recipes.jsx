@@ -5,6 +5,7 @@ import Pagination from "./common/pagination";
 import Badge from "./common/badge";
 import Loading from "./common/loading";
 import { paginate } from "../utils/paginate";
+import { toast } from "react-toastify";
 
 export default class Recipes extends Component {
   state = {
@@ -23,7 +24,7 @@ export default class Recipes extends Component {
       this.setState({ loading });
       this.setState({ items });
     } catch (ex) {
-      console.log("error", ex);
+      toast.error("Sorry, there was an error.");
     }
   }
 
