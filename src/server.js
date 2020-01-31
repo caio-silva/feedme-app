@@ -1,4 +1,4 @@
-require("@babel/polyfill");
+import "@babel/polyfill";
 import createError from 'http-errors';
 import express from 'express';
 import bodyParser from 'body-parser';
