@@ -29,9 +29,6 @@ export default class LoginForm extends Form {
     try {
       const { email, password } = this.state.data;
       await auth.login(email, password);
-      // console.log(this.props.location);
-      // const { state } = this.props.location;
-      // window.location = state ? state.form.pathname : "/recipes";
       // window.location = "/recipes";
       window.location = "/";
     } catch (ex) {

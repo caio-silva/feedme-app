@@ -5,14 +5,6 @@ import _ from 'lodash';
 import { genSalt, hash, compare } from 'bcrypt';
 
 export async function register(req, res) {
-  /*
-  * register accessed via GET. returns a json object with
-  * new user.
-  * 
-  * @return header x-auth-token -> save this header (jwt) to gain access to system
-  * @return {status: "value"}
-  * 
-  */
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });

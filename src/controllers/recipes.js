@@ -5,19 +5,12 @@ import { errorHandler } from '../helpers/errorHandler';
 import { saveToJsonFile } from '../helpers/fileWriter';
 import _ from 'lodash';
 import rp from 'request-promise';
-import { Product } from '../models/product';
 
 export async function getAllRecipes(req, res) {
-  /*
-  * getAllRecipes accessed via GET. returns a json object with all
-  * data in recipes collection.
-  * 
-  */
   try {
     const recipes = await Recipe.find({});
     if (!recipes) return res.json({ totalRecipes: 0, recipes: [] });
     return res.header(200).send(recipes);
-    // return res.header(200).send([recipes[0], recipes[1]]);
   }
   catch (ex) {
     errorHandler(ex, 'getAllRecipes');
@@ -25,13 +18,6 @@ export async function getAllRecipes(req, res) {
 }
 
 export async function getFilteredRecipes(req, res) {
-  /*
-  * getFilteredRecipes accessed via GET. it returns a json object with all
-  * matching recipes based on User.settings and in Stock products
-  * 
-  * @returns {totalRecipes: number, recipes: [recipes]}
-  * 
-  */
   try {
     const { settings } = await User.findById(req.user._id);
     const { _id, ...userSettings } = settings._doc;
@@ -59,13 +45,6 @@ export async function getFilteredRecipes(req, res) {
 export async function queryWithOption(req, res) {
   /*
   *                  TO BE FINISHED
-  *
-  * queryWithOption accessed via POST. 
-  * It returns a json object with all matching recipes based on 
-  * User.settings and in Stock products
-  * 
-  * @returns {totalRecipes: number, recipes: [{recipes]}}
-  * 
   */
   try {
     const recipes = await Recipe

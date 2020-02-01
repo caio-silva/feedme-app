@@ -3,13 +3,6 @@ import { errorHandler } from '../helpers/errorHandler';
 import _ from 'lodash';
 
 export async function getSettings(req, res) {
-  /*
- * getSettings accessed via GET. returns a json object with
- * user settings.
- * 
- * @return {settings: user.settings}
- * 
- */
   try {
     const user = await User.findById(req.user._id);
     return res.json({ settings: user.settings });
@@ -20,14 +13,6 @@ export async function getSettings(req, res) {
 }
 
 export async function changeSettings(req, res) {
-  /*
- * changeSettings accessed via POST. returns a json object with
- * user settings updated.
- * 
- * @body { property:  value}
- * @return {settings: user.settings}
- * 
- */
   try {
     const user = await User.findById(req.user._id);
     user.settings = (

@@ -1,5 +1,4 @@
 import "@babel/polyfill";
-import createError from 'http-errors';
 import express from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
@@ -24,6 +23,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
+// static folder
+app.use(express.static(path.join(__dirname, 'client/build')));
+
 // api routes setup
 app.use('/api/user', usersApiRouter);
 app.use('/api/settings', settingsApiRouter);
@@ -43,12 +45,11 @@ app.use(function (err, req, res, next) {
 
 
 if (process.env.NODE_ENV === 'production') {
-  //set static folder
-  app.use(express.static('client/build'));
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+    res.sendFile(path.join(__dirname + '/client/build/index.html'));
   });
 }
 
-app.listen(PORT, () => { console.log(`Server running and listening on port ${PORT}`) })
-//module.exports = app;
+app.listen(PORT, () => { console.log(`Server running and listening on port ${PORT}`) });
+
+module.exports = app;
