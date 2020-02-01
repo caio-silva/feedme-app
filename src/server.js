@@ -24,10 +24,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-// //////////////////////////
-app.use(express.static(path.resolve(__dirname, '../client/build')));
-// //////////////////////
-
 // api routes setup
 app.use('/api/user', usersApiRouter);
 app.use('/api/settings', settingsApiRouter);
@@ -48,10 +44,9 @@ app.use(function (err, req, res, next) {
 
 if (process.env.NODE_ENV === 'production') {
   //set static folder
-  // app.use(express.static('client/build'));
+  app.use(express.static('client/build'));
   app.get('*', (req, res) => {
-    // res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
-    res.sendFile(path.join(`${__dirname}/build/${req.params['0'].substr(1)}`));
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
   });
 }
 
