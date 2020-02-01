@@ -32,7 +32,8 @@ export default class LoginForm extends Form {
       // console.log(this.props.location);
       // const { state } = this.props.location;
       // window.location = state ? state.form.pathname : "/recipes";
-      window.location = "/recipes";
+      // window.location = "/recipes";
+      window.location = "/";
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         const errors = { ...this.state.errors };
