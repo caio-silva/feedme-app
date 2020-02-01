@@ -15,7 +15,7 @@ config();
 connectToDB();
 
 const app = express();
-// app.use(cors());
+app.use(cors());
 
 const PORT = process.env.PORT || 5000;
 
@@ -49,7 +49,7 @@ app.use(function (err, req, res, next) {
 if (process.env.NODE_ENV === 'production') {
   //set static folder
   // app.use(express.static('client/build'));
-  app.get('*', (req, res) => {
+  app.get('/**', (req, res) => {
     res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
   });
 }
