@@ -39,6 +39,36 @@ export default class Recipes extends Component {
     return (
       <React.Fragment>
         <div className="offset container">
+          <ul className="nav justify-content-around">
+            <li className="nav-item">
+              <button
+                name={"all"}
+                // onClick={this.onClick}
+                className="nav-link bg-dark subnav"
+              >
+                All recipes
+              </button>
+            </li>
+            <li className="nav-item">
+              <button
+                name={"settings"}
+                // onClick={this.onClick}
+                className="nav-link bg-dark subnav"
+              >
+                Settings Recipes
+              </button>
+            </li>
+            <li className="nav-item">
+              <button
+                name={"stock"}
+                // onClick={this.onClick}
+                className="nav-link  bg-dark subnav"
+              >
+                Products recipes
+              </button>
+            </li>
+          </ul>
+
           {this.state.loading && <Loading />}
           {!this.state.loading && (
             <Badge text={"Total Recipes"} qnty={items.length} />

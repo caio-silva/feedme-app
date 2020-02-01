@@ -25,10 +25,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // api routes setup
-app.use('/api/user', usersApiRouter);
-app.use('/api/settings', settingsApiRouter);
-app.use('/api/stock', stockApiRouter);
-app.use('/api/recipes', recipesApiRouter);
+// app.use('/api/user', usersApiRouter);
+// app.use('/api/settings', settingsApiRouter);
+// app.use('/api/stock', stockApiRouter);
+// app.use('/api/recipes', recipesApiRouter);
 
 // error handler
 app.use(function (err, req, res, next) {
