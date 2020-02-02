@@ -6,6 +6,7 @@ import Badge from "./common/badge";
 import Loading from "./common/loading";
 import { paginate } from "../utils/paginate";
 import { toast } from "react-toastify";
+import { SideBar } from "./sideBar";
 
 export default class Recipes extends Component {
   state = {
@@ -37,53 +38,28 @@ export default class Recipes extends Component {
     const recipes = paginate(items, currentPage, pageSize);
 
     return (
-      <React.Fragment>
-        <div className="offset container">
-          <ul className="nav justify-content-around">
-            <li className="nav-item">
-              <button
-                name={"all"}
-                // onClick={this.onClick}
-                className="nav-link bg-dark subnav"
-              >
-                All recipes
-              </button>
-            </li>
-            <li className="nav-item">
-              <button
-                name={"settings"}
-                // onClick={this.onClick}
-                className="nav-link bg-dark subnav"
-              >
-                Settings Recipes
-              </button>
-            </li>
-            <li className="nav-item">
-              <button
-                name={"stock"}
-                // onClick={this.onClick}
-                className="nav-link  bg-dark subnav"
-              >
-                Products recipes
-              </button>
-            </li>
-          </ul>
-
-          {this.state.loading && <Loading />}
-          {!this.state.loading && (
-            <Badge text={"Total Recipes"} qnty={items.length} />
-          )}
-          <div className="row mt-2 justify-content-center">
-            {recipes.map(item => (
-              <ItemView
-                key={item._id}
-                src={item.image}
-                title={item.title}
-                id={item._id}
-                sourceUrl={item.sourceUrl.replace("https", "http")}
-                ingredientsList={item.ingredientsList}
-              />
-            ))}
+      <div className="offset container">
+        <div className="row">
+          <div className="col-2 mt-3 position-fixed">
+            <SideBar />
+          </div>
+          <div className="col offset-2">
+            {this.state.loading && <Loading />}
+            {!this.state.loading && (
+              <Badge text={"Total Recipes"} qnty={items.length} />
+            )}
+            <div className="row mt-2 justify-content-center">
+              {recipes.map(item => (
+                <ItemView
+                  key={item._id}
+                  src={item.image}
+                  title={item.title}
+                  id={item._id}
+                  sourceUrl={item.sourceUrl.replace("https", "http")}
+                  ingredientsList={item.ingredientsList}
+                />
+              ))}
+            </div>
           </div>
         </div>
         <div className=" row justify-content-center">
@@ -94,7 +70,7 @@ export default class Recipes extends Component {
             currentPage={this.state.currentPage}
           />
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

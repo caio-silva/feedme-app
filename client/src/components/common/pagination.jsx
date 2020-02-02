@@ -9,7 +9,7 @@ const Pagination = props => {
 
   return (
     <nav>
-      <ul className="pagination">
+      <ul className="pagination my-4">
         {pages.map(page => (
           <li
             key={page}
