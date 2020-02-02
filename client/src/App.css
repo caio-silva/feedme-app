@@ -66,8 +66,18 @@ body {
 /* --------- END NAV --------- */
 
 /* sidebar */
-.sideBar {
+.sideBar li {
+  color: #fff;
+  background-color: #222;
+  cursor: pointer;
 }
+
+.sideBar li:hover,
+.sideBar li:focus {
+  color: #1ebba3;
+  transition: all 0.4s;
+}
+
 /* end sidebar */
 .fas {
   color: #1ebba3;

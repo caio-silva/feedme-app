@@ -13,7 +13,8 @@ export default class Recipes extends Component {
     items: [],
     pageSize: 12,
     currentPage: 1,
-    loading: true
+    loading: true,
+    sideBar: ["All recipes", "Cook now", "Stock"]
   };
 
   async componentDidMount() {
@@ -29,6 +30,10 @@ export default class Recipes extends Component {
     }
   }
 
+  onSelect = e => {
+    console.log(e);
+  };
+
   onPageChange = page => {
     this.setState({ currentPage: page });
   };
@@ -41,7 +46,7 @@ export default class Recipes extends Component {
       <div className="offset container">
         <div className="row">
           <div className="col-2 mt-3 position-fixed">
-            <SideBar />
+            <SideBar items={this.state.sideBar} onSelect={this.onSelect} />
           </div>
           <div className="col offset-2">
             {this.state.loading && <Loading />}

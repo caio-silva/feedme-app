@@ -12,9 +12,8 @@
     "server": "nodemon --ignore json/ --exec babel-node src/server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "build": "babel src --out-dir dist",
+    "build": "babel src --out-dir dist && npm run build --prefix client",
     "serve": "node dist/index.js",
-    "test": "babel-node -- ./src/test.js",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run build && npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [],
