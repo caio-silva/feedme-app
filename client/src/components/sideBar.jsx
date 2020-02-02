@@ -5,7 +5,7 @@ export const SideBar = () => {
     <ul className="list-group sideBar">
       <li className="list-group-item">All Recipes</li>
       <li className="list-group-item">Cook now</li>
-      <li className="list-group-item">Settings</li>
+      <li className="list-group-item">Stock</li>
     </ul>
   );
 };
