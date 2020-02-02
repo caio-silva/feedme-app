@@ -6,7 +6,6 @@ import auth from "../services/authService";
 export default class Profile extends RegisterForm {
   state = {
     data: {
-      // name: this.props.user.name,
       name: auth.getCurrentUser().name,
       email: auth.getCurrentUser().email,
       password: "",

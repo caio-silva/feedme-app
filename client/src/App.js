@@ -34,7 +34,8 @@ export default class App extends Component {
           <ProtectedRoute exact path="/recipes/:id" component={Recipe} />
           <ProtectedRoute exact path="/recipes" component={Recipes} />
           <ProtectedRoute exact path="/dashboard" component={Dashboard} />
-          <ProtectedRoute exact path="/profile" render={(props) => <Profile user={this.state.user} {...props} />} />
+          {/* <ProtectedRoute exact path="/profile" render={(props) => <Profile user={this.state.user} {...props} />} /> */}
+          <ProtectedRoute exact path="/profile" component={Profile} />} />
           <Route exact path="/not-found" component={NotFound} />
           <Redirect from="/" to="/home" />
           {/* <Redirect to="/not-found" /> */}
