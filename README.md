@@ -9,15 +9,7 @@ In the project directory, you can run:
 ### `npm start`
 
 It runs dist/server.js.
-Please run `npm run build` before running this command.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly transpile "new Js" into "common js" with babel and
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The React build is minified and the filenames include the hashes.<br />
+Please run `npm run build` && `npm install --prefix client` && `npm run build --prefix client` before running this command.
 
 ### `npm run server`
 
