@@ -9,7 +9,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 // Sentry.init({ dsn: "https://235815d91db5497383c660f86c7136ec@sentry.io/1884170" });
 
 ReactDOM.render(
-  <Router>
+  <Router basename={process.env.PUBLIC_URL}>
     <App />
   </Router>,
   document.getElementById('root'));
