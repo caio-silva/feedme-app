@@ -14,12 +14,11 @@ export default class Recipes extends Component {
     pageSize: 12,
     currentPage: 1,
     loading: true,
-    sideBar: ["All recipes", "Cook now", "Stock"]
+    sideBar: ["All recipes", "Filtered recipes", "Cook now", "Stock"]
   };
 
   async componentDidMount() {
     let { loading } = this.state;
-
     try {
       const { data: items } = await recipes.getRecipesWithSettings();
       loading = false;
@@ -30,8 +29,66 @@ export default class Recipes extends Component {
     }
   }
 
-  onSelect = e => {
-    console.log(e);
+  shouldComponentUpdate() {
+    console.log("object shouldComponentUpdate ");
+    return true;
+  }
+
+  onSelect = async e => {
+    this.setState({ items: [] });
+    let { loading } = this.state;
+    loading = true;
+    console.warn("loading", loading);
+    this.setState({ loading });
+    switch (e) {
+      case "All recipes":
+        try {
+          const { data: items } = await recipes.getAllRecipes();
+          loading = false;
+          console.warn("loading 2", loading);
+          this.setState({ loading });
+          this.setState({ items });
+        } catch (ex) {
+          toast.error("Sorry, there was an error.");
+        }
+        break;
+
+      case "Filtered recipes":
+        try {
+          const { data: items } = await recipes.getRecipesWithSettings();
+          loading = false;
+          this.setState({ loading });
+          this.setState({ items });
+        } catch (ex) {
+          toast.error("Sorry, there was an error.");
+        }
+        break;
+
+      // case "Cook now":
+      //   try {
+      //     const { data: items } = await recipes.getRecipesWithSettings();
+      //     loading = false;
+      //     this.setState({ loading });
+      //     this.setState({ items });
+      //   } catch (ex) {
+      //     toast.error("Sorry, there was an error.");
+      //   }
+      //   break;
+
+      // case "Stock":
+      // try {
+      //   const { data: items } = await recipes.getRecipesWithSettings();
+      //   loading = false;
+      //   this.setState({ loading });
+      //   this.setState({ items });
+      // } catch (ex) {
+      //   toast.error("Sorry, there was an error.");
+      // }
+      // break;
+
+      default:
+        break;
+    }
   };
 
   onPageChange = page => {
@@ -51,20 +108,20 @@ export default class Recipes extends Component {
           <div className="col offset-2">
             {this.state.loading && <Loading />}
             {!this.state.loading && (
-              <Badge text={"Total Recipes"} qnty={items.length} />
+              <div className="row mt-2 justify-content-center">
+                {recipes.map(item => (
+                  <ItemView
+                    key={item._id}
+                    src={item.image}
+                    title={item.title}
+                    id={item._id}
+                    sourceUrl={item.sourceUrl.replace("https", "http")}
+                    ingredientsList={item.ingredientsList}
+                  />
+                ))}
+                <Badge text={"Total Recipes"} qnty={items.length} />
+              </div>
             )}
-            <div className="row mt-2 justify-content-center">
-              {recipes.map(item => (
-                <ItemView
-                  key={item._id}
-                  src={item.image}
-                  title={item.title}
-                  id={item._id}
-                  sourceUrl={item.sourceUrl.replace("https", "http")}
-                  ingredientsList={item.ingredientsList}
-                />
-              ))}
-            </div>
           </div>
         </div>
         <div className=" row justify-content-center">
