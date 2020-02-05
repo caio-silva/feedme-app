@@ -8,7 +8,6 @@ body {
   padding: 0;
   margin: 0;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  /* color: #505962; */
 }
 /* --------- NEW --------- */ /* --------- NEW --------- */
 
@@ -31,7 +30,7 @@ body {
   transition-duration: 2s;
   transition-timing-function: linear;
   -webkit-transition-property: color;
-  -webkit-transition-duration: 1s;
+  -webkit-transition-duration: 2s;
   -webkit-transition-timing-function: linear;
 }
 
@@ -282,9 +281,25 @@ input[type="checkbox"]:checked + .switch-btn {
 /* badge */
 .badge-button {
   position: fixed;
-  top: 10rem;
-  right: 0;
-  max-width: 6rem;
+  top: 7rem;
+  right: 1rem;
+  max-width: 16rem;
+}
+
+.badge-button span {
+  margin: 0 1.1rem;
+}
+.badge-light {
+  color: #1ebba3 !important;
+  font-size: 1rem;
+}
+.button-color {
+  color: #1ebba3;
+  background-color: #222;
+}
+.button-color:hover,
+.button-color:active {
+  color: #fff;
 }
 /* end badge */
 

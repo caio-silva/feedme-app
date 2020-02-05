@@ -14,6 +14,7 @@ export default class Dashboard extends Form {
   };
 
   async componentDidMount() {
+    window.scrollTo(0, 0);
     const response = await user.getSettings();
     const { settings } = response.data;
     this.setState({ settings });
