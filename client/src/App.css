@@ -70,7 +70,12 @@ body {
   background-color: #222;
   cursor: pointer;
 }
-
+.yScroll {
+  max-height: 100vh;
+  overflow-y: scroll;
+  background-color: #333;
+  color: #1ebba3;
+}
 .sideBar li:hover,
 .sideBar li:focus {
   color: #1ebba3;
@@ -287,7 +292,7 @@ input[type="checkbox"]:checked + .switch-btn {
 }
 
 .badge-button span {
-  margin: 0 1.1rem;
+  margin: 0.5rem 1.1rem;
 }
 .badge-light {
   color: #1ebba3 !important;

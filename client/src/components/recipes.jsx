@@ -55,31 +55,21 @@ export default class Recipes extends Component {
         }
         break;
 
-      // case "Cook now":
-      //   try {
-      //     const { data: items } = await recipes.getRecipesWithSettings();
-      //     loading = false;
-      //     this.setState({ loading });
-      //     this.setState({ items });
-      //   } catch (ex) {
-      //     toast.error("Sorry, there was an error.");
-      //   }
-      //   break;
+      case "Cook now":
+        toast("Not implemented yet");
+        break;
 
-      // case "Stock":
-      // try {
-      //   const { data: items } = await recipes.getRecipesWithSettings();
-      //   loading = false;
-      //   this.setState({ loading });
-      //   this.setState({ items });
-      // } catch (ex) {
-      //   toast.error("Sorry, there was an error.");
-      // }
-      // break;
+      case "Stock":
+        this.props.history.push("/products");
+        break;
 
       default:
         break;
     }
+  };
+
+  onChange = ({ currentTarget: input }) => {
+    this.setState({ queryInput: input.value });
   };
 
   onPageChange = page => {

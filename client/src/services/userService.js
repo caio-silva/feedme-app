@@ -24,7 +24,7 @@ export function update(user) {
     });
 }
 
-export function getSettings(user) {
+export function getSettings() {
   const endPoint = '/api/settings';
   return http.get(endPoint);
 }
@@ -37,9 +37,21 @@ export function setSettings(settings) {
     { dairyFree, glutenFree, vegan, vegetarian });
 }
 
+export function getStock() {
+  const endPoint = '/api/stock';
+  return http.get(endPoint);
+}
+
+export function setStock({ barcode, quantity }) {
+  const endPoint = '/api/stock';
+  return http.post(endPoint, { barcode, quantity });
+}
+
 export default {
   register,
   update,
   getSettings,
-  setSettings
+  setSettings,
+  getStock,
+  setStock
 }

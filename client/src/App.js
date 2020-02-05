@@ -14,6 +14,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import Products from './components/products';
 
 export default class App extends Component {
   state = {};
@@ -33,11 +34,12 @@ export default class App extends Component {
           <ProtectedRoute exact path="/logout" component={Logout} />
           <ProtectedRoute exact path="/recipes/:id" component={Recipe} />
           <ProtectedRoute exact path="/recipes" component={Recipes} />
+          <ProtectedRoute exact path="/products" component={Products} />
           <ProtectedRoute exact path="/dashboard" component={Dashboard} />
           <ProtectedRoute exact path="/profile" component={Profile} />
           <Route exact path="/not-found" component={NotFound} />
           <Redirect from="/" to="/home" />
-          {/* <Redirect to="/not-found" /> */}
+          <Redirect to="/not-found" />
         </Switch>
       </React.Fragment>
     )

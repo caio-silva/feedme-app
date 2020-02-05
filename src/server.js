@@ -4,13 +4,13 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import cors from 'cors';
 import { connectToDB } from './helpers/dbConnection';
-import { config } from 'dotenv';
+require('dotenv').config()
 import usersApiRouter from './routes/user.api';
 import settingsApiRouter from './routes/settings.api';
 import stockApiRouter from './routes/stock.api';
 import recipesApiRouter from './routes/recipes.api';
+import productsApiRouter from './routes/product.api';
 
-config();
 connectToDB();
 
 const app = express();
@@ -32,6 +32,7 @@ app.use('/api/user', usersApiRouter);
 app.use('/api/settings', settingsApiRouter);
 app.use('/api/stock', stockApiRouter);
 app.use('/api/recipes', recipesApiRouter);
+app.use('/api/products', productsApiRouter);
 
 // error handler
 app.use(function (err, req, res, next) {

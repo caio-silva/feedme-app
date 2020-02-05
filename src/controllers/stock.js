@@ -14,6 +14,7 @@ export async function addToStock(req, res) {
     for (let product of stock.products) {
       if (product.productId.toString() === productToAdd._id.toString()) {
         product.quantity += quantityToAdd;
+
         found = true;
       }
       if (found) break;
@@ -29,7 +30,7 @@ export async function addToStock(req, res) {
       });
     }
     await stock.save();
-    return res.json({ totalProducts: stock.products.length, products: stock.products });
+    return res.send({ stock });
   }
   catch (ex) {
     errorHandler(ex, 'addToStock');
@@ -39,8 +40,9 @@ export async function addToStock(req, res) {
 export async function getStock(req, res) {
   try {
     const stock = await Stock.findOne({ userId: req.user._id });
-    if (!stock) return res.send({ products: '' });
-    return res.json({ totalProducts: stock.products.length, products: stock.products });
+    // if (!stock) return res.send({ products: '' });
+    // return res.json({ totalProducts: stock.products.length, products: stock.products });
+    return res.send(stock);
 
   }
   catch (ex) {

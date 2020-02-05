@@ -29,8 +29,8 @@ export default class LoginForm extends Form {
     try {
       const { email, password } = this.state.data;
       await auth.login(email, password);
-      // window.location = "/recipes";
-      window.location = "/";
+      window.location = "/recipes";
+      // window.location = "/";
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         const errors = { ...this.state.errors };

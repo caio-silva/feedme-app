@@ -1,14 +1,15 @@
-import {connect, connection} from 'mongoose';
+import { connect, connection } from 'mongoose';
 import { errorHandler } from './errorHandler';
 
-export async function connectToDB(){
-    /*
-    * connects to db. Resposible for connection.  
-    */
+export async function connectToDB() {
+  /*
+  * connects to db. Resposible for connection.  
+  */
 
-  const url = process.env.DB_URL;
+  const url = process.env.NODE_ENV === 'production' ? process.env.DB_URL : process.env.DB_URL_DEV;
+
   const options = {
-    useNewUrlParser: true, 
+    useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
     useCreateIndex: true
@@ -16,17 +17,17 @@ export async function connectToDB(){
 
   console.log(`Connecting to db..`);
 
-  connection.on('connected', () => {console.log('Connection Established')});
-  connection.on('reconnected', () => {console.log('Connection Reestablished')});
-  connection.on('disconnected', () => {console.log('Connection Disconnected')});
-  connection.on('close', () => {console.log('Connection Closed')});
-  connection.on('error', (error) => {console.log('ERROR: ' + error)});
+  connection.on('connected', () => { console.log('Connection Established') });
+  connection.on('reconnected', () => { console.log('Connection Reestablished') });
+  connection.on('disconnected', () => { console.log('Connection Disconnected') });
+  connection.on('close', () => { console.log('Connection Closed') });
+  connection.on('error', (error) => { console.log('ERROR: ' + error) });
 
-  try{
+  try {
     await connect(url, options);
   }
-  catch (ex) { 
-    errorHandler(ex, 'connectToDB');  
+  catch (ex) {
+    errorHandler(ex, 'connectToDB');
   }
 
 }
