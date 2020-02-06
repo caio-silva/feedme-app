@@ -10,7 +10,8 @@ const stockSchema = new Schema({
     products: [{
         product_name: String,
         quantity: Number,
-        productId: {
+        productId: String,
+        product_Id: {
             type: Schema.Types.ObjectId,
             ref: 'Product'
         },

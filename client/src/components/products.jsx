@@ -23,11 +23,8 @@ export default class Products extends Component {
     try {
       const { data: items } = await product.getProducts();
       this.setState({ items });
-      const {
-        data: { products: stock }
-      } = await user.getStock();
+      const { data: stock } = await user.getStock();
       this.setState({ stock });
-      // console.log(stock);
       this.setState({ isLoading: false });
     } catch (ex) {
       toast.error("Sorry, there was an error.");

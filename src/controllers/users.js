@@ -1,8 +1,9 @@
-import { User } from '../models/user';
-import { validationResult } from 'express-validator';
-import { errorHandler } from '../helpers/errorHandler';
 import _ from 'lodash';
 import { genSalt, hash, compare } from 'bcrypt';
+import { User } from '../models/user';
+import { createStock } from '../controllers/stock';
+import { validationResult } from 'express-validator';
+import { errorHandler } from '../helpers/errorHandler';
 
 export async function register(req, res) {
   try {
@@ -22,8 +23,11 @@ export async function register(req, res) {
 
     const salt = await genSalt(10);
     user.password = await hash(user.password, salt);
+    const { _id } = _.pick(user, ['_id']);
 
+    await createStock(_id);
     await user.save();
+
     const token = await user.generateAuthToken();
     const response = _.pick(user, ['_id', 'name', 'email']);
 

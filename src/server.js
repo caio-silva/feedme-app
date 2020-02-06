@@ -1,10 +1,10 @@
 import "@babel/polyfill";
+require('dotenv').config()
 import express from 'express';
 import bodyParser from 'body-parser';
 import path from 'path';
 import cors from 'cors';
 import { connectToDB } from './helpers/dbConnection';
-require('dotenv').config()
 import usersApiRouter from './routes/user.api';
 import settingsApiRouter from './routes/settings.api';
 import stockApiRouter from './routes/stock.api';
@@ -23,9 +23,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-// //////////////////////////
+// set static path
 app.use(express.static(path.resolve(__dirname, '../client/build')));
-// //////////////////////
 
 // api routes setup
 app.use('/api/user', usersApiRouter);
