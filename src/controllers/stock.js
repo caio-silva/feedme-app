@@ -22,7 +22,7 @@ export async function addToStock(req, res) {
     let found = false;
     for (let product of stock.products) {
       if (product.productId.toString() === productToAdd.id.toString()) {
-        product.quantity += quantityToAdd;
+        ((product.quantity + quantityToAdd) >= 0) ? product.quantity += quantityToAdd : '';
         found = true;
       }
       if (found) break;

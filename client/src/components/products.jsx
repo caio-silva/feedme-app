@@ -75,10 +75,18 @@ export default class Products extends Component {
   };
 
   render() {
-    const { items, itemsToShow, pageSize, currentPage, stock } = this.state;
+    const {
+      items,
+      itemsToShow,
+      pageSize,
+      currentPage,
+      stock: _stock
+    } = this.state;
     const toPaginate =
       this.state.itemsToShow.length > 0 ? itemsToShow.sort() : items.sort();
     const products = paginate(toPaginate.sort(), currentPage, pageSize);
+
+    const stock = _stock.filter(item => item.quantity > 0);
 
     return (
       <div className="offset">
