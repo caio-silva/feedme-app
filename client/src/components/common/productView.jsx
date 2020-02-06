@@ -5,7 +5,7 @@ const ProductView = props => {
   return (
     <div>
       <div className="col-10">
-        <div className="row">
+        <div className="row" style={{ border: "1px solid black" }}>
           <div className="col-6">{name}</div>
           <div className="col-2">
             <span

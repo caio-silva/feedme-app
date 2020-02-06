@@ -33,9 +33,7 @@ export async function getFilteredRecipes(req, res) {
       Recipe
         .find({ $expr: { $setIsSubset: ["$ingredientsList", prodInStockList] } }, { _id: 0 })
         .where(userSettings);
-
-    if (!recipes) return res.json({ totalRecipes: 0, recipes: [] });
-    return res.json({ totalRecipes: recipes.length, recipes: recipes });
+    return (recipes.length > 1) ? res.send({ recipes }) : res.send([]);
   }
   catch (ex) {
     errorHandler(ex, 'getFilteredRecipes');

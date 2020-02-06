@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import Pagination from "./common/pagination";
-import Loading from "./common/loading";
 import { paginate } from "../utils/paginate";
 import product from "../services/productService";
 import { toast } from "react-toastify";
@@ -22,8 +20,12 @@ export default class Products extends Component {
   async componentDidMount() {
     try {
       const { data: items } = await product.getProducts();
+      items.sort();
+      console.log(items);
       this.setState({ items });
-      const { data: stock } = await user.getStock();
+      const {
+        data: { products: stock }
+      } = await user.getStock();
       this.setState({ stock });
       this.setState({ isLoading: false });
     } catch (ex) {
@@ -74,7 +76,9 @@ export default class Products extends Component {
 
   render() {
     const { items, itemsToShow, pageSize, currentPage, stock } = this.state;
-    const products = paginate(itemsToShow, currentPage, pageSize);
+    const toPaginate =
+      this.state.itemsToShow.length > 0 ? itemsToShow.sort() : items.sort();
+    const products = paginate(toPaginate.sort(), currentPage, pageSize);
 
     return (
       <div className="offset">
@@ -82,7 +86,7 @@ export default class Products extends Component {
           <div className="row">
             <div className="col">
               <h1>In stock</h1>
-              {stock.length >= 1 &&
+              {stock.length > 0 &&
                 stock.map(item => (
                   <ProductView
                     key={item.productId}

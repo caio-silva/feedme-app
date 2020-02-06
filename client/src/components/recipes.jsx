@@ -56,7 +56,14 @@ export default class Recipes extends Component {
         break;
 
       case "Cook now":
-        toast("Not implemented yet");
+        try {
+          const { data: items } = await recipes.getFilteredRecipes();
+          this.setState({ isLoading: false });
+          this.setState({ sideBarR: "Cook Now" });
+          this.setState({ items });
+        } catch (ex) {
+          toast.error("Sorry, there was an error.");
+        }
         break;
 
       case "Stock":
