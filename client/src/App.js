@@ -38,7 +38,7 @@ export default class App extends Component {
           <ProtectedRoute exact path="/dashboard" component={Dashboard} />
           <ProtectedRoute exact path="/profile" component={Profile} />
           <Route exact path="/not-found" component={NotFound} />
-          <Redirect from="/" to="/home" />
+          <Redirect exact from="/" to="/home" />
           <Redirect to="/not-found" />
         </Switch>
       </React.Fragment>

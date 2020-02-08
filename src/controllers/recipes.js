@@ -6,10 +6,20 @@ import { saveToJsonFile } from '../helpers/fileWriter';
 import _ from 'lodash';
 import rp from 'request-promise';
 
+export async function getRecipeById(req, res) {
+  try {
+    const recipe = await Recipe.findById(req.params.id);
+    return res.header(200).send(recipe);
+  }
+  catch (ex) {
+    errorHandler(ex, 'getRecipeById');
+  }
+}
+
+
 export async function getAllRecipes(req, res) {
   try {
     const recipes = await Recipe.find({});
-    if (!recipes) return res.json({ totalRecipes: 0, recipes: [] });
     return res.header(200).send(recipes);
   }
   catch (ex) {

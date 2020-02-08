@@ -1,13 +1,16 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const ItemView = ({ src, title, sourceUrl, ...rest }) => {
+const ItemView = ({ src, title, id, sourceUrl, ...rest }) => {
   return (
-    <div className="card my-card" style={{ width: "14rem" }}>
-      <img src={src} className="card-img-top" alt={title} />
-      <div className="card-body align-self-center">
-        <p className="card-title">{title}</p>
+    <Link to={`/recipes/${id}`}>
+      <div className="card my-card" style={{ width: "14rem" }}>
+        <img src={src} className="card-img-top" alt={title} />
+        <div className="card-body align-self-center">
+          <p className="card-title">{title}</p>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

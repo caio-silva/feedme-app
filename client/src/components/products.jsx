@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import _ from "lodash";
 import { paginate } from "../utils/paginate";
 import product from "../services/productService";
 import { toast } from "react-toastify";
@@ -21,7 +22,6 @@ export default class Products extends Component {
     try {
       const { data: items } = await product.getProducts();
       items.sort();
-      console.log(items);
       this.setState({ items });
       const {
         data: { products: stock }
@@ -39,6 +39,7 @@ export default class Products extends Component {
     const itemsToShow = items.filter(item =>
       item.name.toLowerCase().startsWith(queryInput.toLowerCase())
     );
+
     this.setState({ itemsToShow });
   };
 
@@ -82,9 +83,10 @@ export default class Products extends Component {
       currentPage,
       stock: _stock
     } = this.state;
-    const toPaginate =
-      this.state.itemsToShow.length > 0 ? itemsToShow.sort() : items.sort();
-    const products = paginate(toPaginate.sort(), currentPage, pageSize);
+    const toSort = this.state.itemsToShow.length > 0 ? itemsToShow : items;
+    const toPaginate = _.orderBy(toSort, ["name"], ["asc"]);
+
+    const products = paginate(toPaginate, currentPage, pageSize);
 
     const stock = _stock.filter(item => item.quantity > 0);
 
@@ -92,7 +94,7 @@ export default class Products extends Component {
       <div className="offset">
         <div className="container-fluid">
           <div className="row">
-            <div className="col">
+            <div className="col" style={{ maxHeight: "50vh" }}>
               <h1>In stock</h1>
               {stock.length > 0 &&
                 stock.map(item => (

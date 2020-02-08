@@ -8,6 +8,9 @@ body {
   padding: 0;
   margin: 0;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  /* font-size: calc(16px + 0.5vw);
+  line-height: calc(1.1em + 0.5vw); */
+  /* margin: 0.5em; */
 }
 /* --------- NEW --------- */ /* --------- NEW --------- */
 

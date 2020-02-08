@@ -1,5 +1,11 @@
 import http from './httpServices';
 
+
+export function getRecipeById(id) {
+  const endPoint = `/api/recipes/${id}`
+  return http.get(endPoint);
+}
+
 export function getAllRecipes() {
   const endPoint = '/api/recipes/all';
   return http.get(endPoint);
@@ -16,7 +22,8 @@ export function getRecipesWithSettings() {
 }
 
 export default {
+  getRecipeById,
   getAllRecipes,
   getFilteredRecipes,
   getRecipesWithSettings
-}
+} 
