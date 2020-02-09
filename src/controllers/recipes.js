@@ -12,7 +12,8 @@ export async function getRecipeById(req, res) {
     return res.header(200).send(recipe);
   }
   catch (ex) {
-    errorHandler(ex, 'getRecipeById');
+    // errorHandler(ex, 'getRecipeById');
+    return res.header(200).send('not-found');
   }
 }
 
