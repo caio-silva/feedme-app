@@ -21,31 +21,54 @@ export default class Recipe extends Component {
     return (
       <div className="offset">
         <div className="container">
-          <div className="row justify-content-center">
+          <div className="row justify-content-center my-2 ">
             <div
               className="col-8 text-center mb-4"
-              style={{ backgroundColor: "#111", color: "#fff" }}
+              style={{
+                backgroundColor: "#f4f4f4",
+                color: "#000",
+                borderRadius: "5px"
+              }}
             >
               <h1>{title}</h1>
-              <img src={image} alt={title} />
+              <img
+                src={image}
+                alt={title}
+                style={{ borderRadius: "5px", boxShadow: "5px 5px #222" }}
+              />
               <br />
               <br />
-              {instructions && instructions.split(".").map(i => <p>{i}</p>)}
+              {instructions &&
+                instructions
+                  .split(".")
+                  .map(i => <p>{i.replace(/<\/?[a-z]*?>/gi, "")}</p>)}
               <span
                 className="badge badge-light"
-                style={{ display: "inline-block", margin: "0 1rem" }}
+                style={{
+                  display: "inline-block",
+                  margin: "0 1rem",
+                  backgroundColor: "#111"
+                }}
               >
                 {rest.vegan ? "Vegan" : ""}
               </span>
               <span
                 className="badge badge-light"
-                style={{ display: "inline-block", margin: "0 1rem" }}
+                style={{
+                  display: "inline-block",
+                  margin: "0 1rem",
+                  backgroundColor: "#111"
+                }}
               >
                 {rest.vegetarian ? "Vegetarian" : ""}
               </span>
               <span
                 className="badge badge-light"
-                style={{ display: "inline-block", margin: "0 1rem" }}
+                style={{
+                  display: "inline-block",
+                  margin: "0 1rem",
+                  backgroundColor: "#111"
+                }}
               >
                 {rest.readyInMinutes} min prep
               </span>
