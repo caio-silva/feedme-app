@@ -17,7 +17,7 @@ export const SideBar = props => {
           {item}
           {isLoading ? (
             ""
-          ) : selected === item ? (
+          ) : selected === item && selected !== "All recipes" ? (
             <span
               className="badge badge-light"
               style={{
