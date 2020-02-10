@@ -20,7 +20,7 @@ export default class Recipe extends Component {
       this.props.history.replace("/not-found");
     return (
       <div className="offset">
-        <div className="container">
+        <div className="container-fluid">
           <div className="row justify-content-center my-2 ">
             <div
               className="col-8 text-center mb-4"
@@ -38,10 +38,12 @@ export default class Recipe extends Component {
               />
               <br />
               <br />
-              {instructions &&
-                instructions
-                  .split(".")
-                  .map(i => <p>{i.replace(/<\/?[a-z]*?>/gi, "")}</p>)}
+              <ul className="text-center" style={{ listStyle: "one" }}>
+                {instructions &&
+                  instructions
+                    .split(".")
+                    .map(i => <li>{i.replace(/<\/?[a-z]*?>/gi, "")}</li>)}
+              </ul>
               <span
                 className="badge badge-light"
                 style={{

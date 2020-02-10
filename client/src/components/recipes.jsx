@@ -2,7 +2,6 @@ import ItemView from "./common/itemView";
 import React, { Component } from "react";
 import recipes from "../services/recipesService";
 import Pagination from "./common/pagination";
-import Badge from "./common/badge";
 import Loading from "./common/loading";
 import { paginate } from "../utils/paginate";
 import { toast } from "react-toastify";
@@ -88,16 +87,17 @@ export default class Recipes extends Component {
     const recipes = paginate(items, currentPage, pageSize);
 
     return (
-      <div className="offset container">
+      <div className="offset container-fluid">
         <div className="row">
-          <div className="col-2 mt-3 position-fixed">
+          <div className="col-3 mt-3 position-fixed">
             <SideBar
               items={this.state.sideBar}
               onSelect={this.onSelect}
               selected={this.state.sideBarR}
+              qnty={items.length}
             />
           </div>
-          <div className="col-9 offset-2">
+          <div className="col-8 offset-3">
             {this.state.isLoading && <Loading />}
             {!this.state.isLoading && (
               <div className="row  justify-content-center">
@@ -113,13 +113,6 @@ export default class Recipes extends Component {
                 ))}
               </div>
             )}
-          </div>
-          <div className="col-1  position-fixed">
-            <Badge
-              text={this.state.sideBarR}
-              qnty={items.length}
-              isLoading={this.state.isLoading}
-            />
           </div>
         </div>
         <div className=" row justify-content-center">
