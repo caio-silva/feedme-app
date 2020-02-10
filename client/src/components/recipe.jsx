@@ -6,6 +6,7 @@ import { SideBar } from "./sideBar";
 export default class Recipe extends Recipes {
   async componentDidMount() {
     this.setState({ isLoading: true });
+    this.setState({ selected: "Recipe" });
     const { data: item } = await recipes.getRecipeById(
       this.props.match.params.id
     );
@@ -14,7 +15,11 @@ export default class Recipe extends Recipes {
   }
 
   onSelect = e => {
+    console.log(e);
+    this.setState({ selected: e });
+
     this.props.history.push("/recipes");
+    console.log(this.state.selected);
   };
 
   render() {

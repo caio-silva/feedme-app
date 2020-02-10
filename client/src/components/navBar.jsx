@@ -58,7 +58,7 @@ const NavBar = ({ user }) => {
               </li>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/dashboard">
-                  Dashboard
+                  Settings
                 </NavLink>
               </li>
               <li className="nav-item">

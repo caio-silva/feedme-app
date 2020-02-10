@@ -262,6 +262,8 @@ input[type="checkbox"]:checked + .switch-btn {
 .my-card {
   margin: 1rem;
   padding: 0.5rem;
+  cursor: pointer;
+  color: #222;
 }
 
 .my-card:hover {
