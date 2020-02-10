@@ -45,9 +45,15 @@ export default class Recipe extends Recipes {
             >
               <h1>{title}</h1>
               <img
+                className="img-fluid"
                 src={image}
                 alt={title}
-                style={{ borderRadius: "5px", boxShadow: "5px 5px #222" }}
+                style={{
+                  borderRadius: "5px",
+                  boxShadow: "5px 5px #222",
+                  maxWidth: "100%,",
+                  height: "auto"
+                }}
               />
               <div className="row mt-3">
                 <div className="col-md-6 text-left">
@@ -55,17 +61,7 @@ export default class Recipe extends Recipes {
                   <ul>
                     {!this.state.isLoading &&
                       this.state.item.extendedIngredients.map(item => (
-                        <li
-                          style={{ listStyle: "none" }}
-                          // className="badge badge-light"
-                          // style={{
-                          //   display: "inline-block",
-                          //   margin: ".5rem .5rem",
-                          //   backgroundColor: "#111"
-                          // }}
-                        >
-                          {item.original}
-                        </li>
+                        <li style={{ listStyle: "none" }}>{item.original}</li>
                       ))}
                   </ul>
                 </div>
@@ -103,12 +99,13 @@ export default class Recipe extends Recipes {
                   </span>
                 </div>
               </div>
-              <div className="text-left">
+              <div className="text-left container">
                 <h3>Method</h3>
                 <ol>
                   {instructions &&
                     instructions
                       .split(".")
+                      .slice(0, instructions.split(".").length - 1)
                       .map(i => (
                         <li key={Math.random()}>
                           {i.replace(/<\/?[a-z]*?>/gi, "")}
@@ -116,6 +113,12 @@ export default class Recipe extends Recipes {
                       ))}
                 </ol>
               </div>
+              <button
+                className="btn btn-primary"
+                onClick={this.props.history.goBack}
+              >
+                Back
+              </button>
             </div>
           </div>
         </div>
