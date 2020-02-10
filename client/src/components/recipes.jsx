@@ -10,18 +10,19 @@ import { SideBar } from "./sideBar";
 export default class Recipes extends Component {
   state = {
     items: [],
+    item: {},
     pageSize: 12,
     currentPage: 1,
     isLoading: true,
     sideBar: ["All recipes", "Filtered recipes", "Cook now", "Stock"],
-    sideBarR: ""
+    selected: ""
   };
 
   async componentDidMount() {
     try {
       const { data: items } = await recipes.getRecipesWithSettings();
       this.setState({ isLoading: false });
-      this.setState({ sideBarR: "Filtered recipes" });
+      this.setState({ selected: "Filtered recipes" });
       this.setState({ items });
     } catch (ex) {
       toast.error("Sorry, there was an error.");
@@ -36,7 +37,7 @@ export default class Recipes extends Component {
         try {
           const { data: items } = await recipes.getAllRecipes();
           this.setState({ isLoading: false });
-          this.setState({ sideBarR: "All recipes" });
+          this.setState({ selected: "All recipes" });
           this.setState({ items });
         } catch (ex) {
           toast.error("Sorry, there was an error.");
@@ -47,7 +48,7 @@ export default class Recipes extends Component {
         try {
           const { data: items } = await recipes.getRecipesWithSettings();
           this.setState({ isLoading: false });
-          this.setState({ sideBarR: "Filtered recipes" });
+          this.setState({ selected: "Filtered recipes" });
           this.setState({ items });
         } catch (ex) {
           toast.error("Sorry, there was an error.");
@@ -58,7 +59,7 @@ export default class Recipes extends Component {
         try {
           const { data: items } = await recipes.getFilteredRecipes();
           this.setState({ isLoading: false });
-          this.setState({ sideBarR: "Cook Now" });
+          this.setState({ selected: "Cook Now" });
           this.setState({ items });
         } catch (ex) {
           toast.error("Sorry, there was an error.");
@@ -83,7 +84,7 @@ export default class Recipes extends Component {
   };
 
   render() {
-    const { items, pageSize, currentPage } = this.state;
+    const { items, pageSize, currentPage, isLoading } = this.state;
     const recipes = paginate(items, currentPage, pageSize);
 
     return (
@@ -93,8 +94,9 @@ export default class Recipes extends Component {
             <SideBar
               items={this.state.sideBar}
               onSelect={this.onSelect}
-              selected={this.state.sideBarR}
+              selected={this.state.selected}
               qnty={items.length}
+              isLoading={isLoading}
             />
           </div>
           <div className="col-8 offset-3">
@@ -113,15 +115,15 @@ export default class Recipes extends Component {
                 ))}
               </div>
             )}
+            <div className=" row justify-content-center">
+              <Pagination
+                itemsCount={items.length}
+                pageSize={pageSize}
+                onPageChange={this.onPageChange}
+                currentPage={this.state.currentPage}
+              />
+            </div>
           </div>
-        </div>
-        <div className=" row justify-content-center">
-          <Pagination
-            itemsCount={items.length}
-            pageSize={pageSize}
-            onPageChange={this.onPageChange}
-            currentPage={this.state.currentPage}
-          />
         </div>
       </div>
     );

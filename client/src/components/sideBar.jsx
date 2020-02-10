@@ -1,7 +1,7 @@
 import React from "react";
 
 export const SideBar = props => {
-  const { items, onSelect, selected, qnty } = props;
+  const { items, onSelect, selected, qnty, isLoading } = props;
   return (
     <ul className="list-group sideBar">
       {items.map(item => (
@@ -10,12 +10,14 @@ export const SideBar = props => {
           onClick={() => onSelect(item)}
           className={
             selected === item
-              ? "w-100 list-group-item badge-light"
-              : "w-100 list-group-item"
+              ? "w-75 list-group-item badge-light"
+              : "w-75 list-group-item"
           }
         >
           {item}
-          {selected === item ? (
+          {isLoading ? (
+            ""
+          ) : selected === item ? (
             <span
               className="badge badge-light"
               style={{
