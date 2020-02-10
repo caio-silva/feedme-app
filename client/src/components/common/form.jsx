@@ -123,8 +123,6 @@ export default class Form extends Component {
       <p className="mt-2 text-muted">
         {msg} <a href={link}>{label}</a>
       </p>
-
-      // <Link to={link}>{label}</Link>
     );
   }
 }

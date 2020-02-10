@@ -21,7 +21,7 @@ You will also see any lint errors in the console.
 
 ### `heroku-postbuild script`
 
-This script automates the build proccess for herock deplyment
+This script automates the build proccess for herock deployment
 </br></br></br>
 
 ### `To-dos`

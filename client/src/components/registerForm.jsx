@@ -23,13 +23,16 @@ export default class RegisterForm extends Form {
     email: Joi.string()
       .email()
       .required()
+      .min(3)
+      .max(30)
       .label("Email"),
     password: Joi.string()
+      .min(6)
+      .max(30)
       .required()
       .label("Password"),
-    // password_confirmation: Joi.ref(".password")
     password_confirmation: Joi.string()
-      .required()
+      // .required()
       .label("Password Confirmation")
   };
 
@@ -38,7 +41,6 @@ export default class RegisterForm extends Form {
       const response = await user.register(this.state.data);
       auth.loginWithJwt(response.headers["x-auth-token"]);
       window.location = "/recipes";
-      // window.location = "/";
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         const errors = { ...this.state.errors };
@@ -67,7 +69,7 @@ export default class RegisterForm extends Form {
             )}
             {this.renderButton("Submit")}
             {this.renderFormFooter(
-              "Alredy have an account?",
+              "Already have an account?",
               "/home#login",
               "Login now"
             )}

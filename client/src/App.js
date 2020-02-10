@@ -11,7 +11,8 @@ import Dashboard from './components/dashboard';
 import NotFound from './components/notFound';
 import ProtectedRoute from './components/common/protectedRoute';
 import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import 'react-toastify/dist/ReactToastify.css';
+import 'normalize.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Products from './components/products';
