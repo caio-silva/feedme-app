@@ -55,9 +55,9 @@ export default class Recipe extends Recipes {
                   height: "auto"
                 }}
               />
-              <div className="row mt-3">
+              <div className="row justify-content-around mt-3">
                 <div className="col-md-6 text-left">
-                  <h3 className="text-center">Ingredients</h3>
+                  <h3 className="text-center mb-3">Ingredients</h3>
                   <ul>
                     {!this.state.isLoading &&
                       this.state.item.extendedIngredients.map(item => (
@@ -66,7 +66,7 @@ export default class Recipe extends Recipes {
                   </ul>
                 </div>
                 <div className="col-md-6">
-                  <h3 className="text-center">Highlights</h3>
+                  <h3 className="text-center mb-3">Highlights</h3>
                   <span
                     className="badge badge-light"
                     style={{
@@ -99,7 +99,7 @@ export default class Recipe extends Recipes {
                   </span>
                 </div>
               </div>
-              <div className="text-left container">
+              <div className="text-left mt-3">
                 <h3>Method</h3>
                 <ol>
                   {instructions &&
@@ -108,7 +108,13 @@ export default class Recipe extends Recipes {
                       .slice(0, instructions.split(".").length - 1)
                       .map(i => (
                         <li key={Math.random()}>
-                          {i.replace(/<\/?[a-z]*?>/gi, "")}
+                          <span
+                            style={{
+                              marginLeft: "0.5rem"
+                            }}
+                          >
+                            {i.replace(/<\/?[a-z]*?>/gi, "")}
+                          </span>
                         </li>
                       ))}
                 </ol>
