@@ -2,6 +2,7 @@ import React from "react";
 import recipes from "../services/recipesService";
 import Recipes from "./recipes";
 import { SideBar } from "./sideBar";
+import Loading from "./common/loading";
 
 export default class Recipe extends Recipes {
   async componentDidMount() {
@@ -64,6 +65,7 @@ export default class Recipe extends Recipes {
                 <div className="col-md-6 text-left">
                   <h3 className="text-center mb-3">Ingredients</h3>
                   <ul>
+                    {this.state.isLoading && <Loading />}
                     {!this.state.isLoading &&
                       this.state.item.extendedIngredients.map(item => (
                         <li style={{ listStyle: "none" }}>{item.original}</li>

@@ -10,10 +10,15 @@ const ItemView = ({ src, title, id, sourceUrl, ...rest }) => {
   title = title.length <= 50 ? title : shortenTitle(title);
   return (
     <Link to={`/recipes/${id}`} style={{ cursor: "pointer" }}>
-      <div className="card my-card" style={{ width: "14rem", height: "16rem" }}>
-        <img src={src} className="card-img-top" alt={title} />
-        <div className="card-body">
-          <span className="card-title">{title}</span>
+      <div
+        className="card my-card text-center"
+        style={{ backgroundColor: "#222" }}
+      >
+        <div style={{ overflow: "hidden" }}>
+          <img src={src} className="card-img-top my-card-img" alt={title} />
+        </div>
+        <div className="my-card-body text-center">
+          <span className="card-title mt-3">{title}</span>
         </div>
       </div>
     </Link>

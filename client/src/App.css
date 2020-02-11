@@ -8,9 +8,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  /* font-size: calc(16px + 0.5vw);
-  line-height: calc(1.1em + 0.5vw); */
-  /* margin: 0.5em; */
+  font-size: 16px;
 }
 /* --------- NEW --------- */ /* --------- NEW --------- */
 
@@ -258,12 +256,28 @@ input[type="checkbox"]:checked + .switch-btn {
 .itemImage img {
   width: 100%;
 }
+/* recipe card */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
 
 .my-card {
   margin: 1rem;
-  padding: 0.5rem;
   cursor: pointer;
-  color: #222;
+  color: #fff;
+  width: 400px;
+  height: 300px;
+}
+
+.card-title {
+  font-size: 18px;
+}
+
+.my-card-img {
+  margin: auto auto;
+  transform: scale(1.15);
+  opacity: 0.7;
 }
 
 .my-card:hover {
@@ -271,6 +285,11 @@ input[type="checkbox"]:checked + .switch-btn {
   background-color: rgba(0, 0, 0, 0.1);
   color: #1ebba3;
   transition: all 0.4s;
+}
+.my-card:hover .my-card-img {
+  transform: scale(1);
+  transition: all 0.4s;
+  opacity: 1;
 }
 
 .my-card h5,

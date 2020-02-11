@@ -11,7 +11,7 @@ export default class Recipes extends Component {
   state = {
     items: [],
     item: {},
-    pageSize: 12,
+    pageSize: 10,
     currentPage: 1,
     isLoading: true,
     sideBar: ["All recipes", "Filtered recipes", "Cook now", "Stock"],
@@ -37,6 +37,7 @@ export default class Recipes extends Component {
         try {
           const { data: items } = await recipes.getAllRecipes();
           this.setState({ isLoading: false });
+          this.setState({ currentPage: 1 });
           this.setState({ selected: "All recipes" });
           this.setState({ items });
         } catch (ex) {
@@ -48,6 +49,7 @@ export default class Recipes extends Component {
         try {
           const { data: items } = await recipes.getRecipesWithSettings();
           this.setState({ isLoading: false });
+          this.setState({ currentPage: 1 });
           this.setState({ selected: "Filtered recipes" });
           this.setState({ items });
         } catch (ex) {
@@ -59,6 +61,7 @@ export default class Recipes extends Component {
         try {
           const { data: items } = await recipes.getFilteredRecipes();
           this.setState({ isLoading: false });
+          this.setState({ currentPage: 1 });
           this.setState({ selected: "Cook Now" });
           this.setState({ items });
         } catch (ex) {
@@ -69,6 +72,19 @@ export default class Recipes extends Component {
       case "Stock":
         this.props.history.push("/products");
         break;
+
+      // case "Recipe":
+      //   try {
+      //     this.setState({ selected: "Recipe" });
+      //     const { data: item } = await recipes.getRecipeById(
+      //       this.props.match.params.id
+      //     );
+      //     this.setState({ item });
+      //     this.setState({ isLoading: false });
+      //   } catch (ex) {
+      //     toast.error("Sorry, there was an error.");
+      //   }
+      //   break;
 
       default:
         break;
@@ -81,6 +97,10 @@ export default class Recipes extends Component {
 
   onPageChange = page => {
     this.setState({ currentPage: page });
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
   };
 
   render() {
@@ -99,30 +119,36 @@ export default class Recipes extends Component {
               isLoading={isLoading}
             />
           </div>
-          <div className="col-8 offset-3">
+          <div className="col-9 offset-3">
             {this.state.isLoading && <Loading />}
-            {!this.state.isLoading && (
-              <div className="row  justify-content-center">
-                {recipes.map(item => (
-                  <ItemView
-                    key={item._id}
-                    src={item.image}
-                    title={item.title}
-                    id={item._id}
-                    sourceUrl={item.sourceUrl.replace("https", "http")}
-                    ingredientsList={item.ingredientsList}
-                  />
-                ))}
-              </div>
-            )}
-            <div className=" row justify-content-center">
-              <Pagination
-                itemsCount={items.length}
-                pageSize={pageSize}
-                onPageChange={this.onPageChange}
-                currentPage={this.state.currentPage}
-              />
-            </div>
+            {this.state.sideBar.includes(this.state.selected) &&
+              !this.state.isLoading && (
+                <div className="row no-gutters">
+                  {recipes.map(item => (
+                    <ItemView
+                      key={item._id}
+                      src={item.image}
+                      title={item.title}
+                      id={item._id}
+                      sourceUrl={item.sourceUrl.replace("https", "http")}
+                      ingredientsList={item.ingredientsList}
+                    />
+                  ))}
+                  <div className=" row w-100 justify-content-center">
+                    <Pagination
+                      itemsCount={items.length}
+                      pageSize={pageSize}
+                      onPageChange={this.onPageChange}
+                      currentPage={this.state.currentPage}
+                    />
+                  </div>
+                </div>
+              )}
+
+            {/* {!this.state.sideBar.includes(this.state.selected) &&
+              !this.state.isLoading && (
+                <Recipe props={{ ...this.state.item, ...this.state.props }} />
+              )} */}
           </div>
         </div>
       </div>
