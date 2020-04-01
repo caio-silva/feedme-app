@@ -7,7 +7,8 @@ export const SideBar = props => {
       {items.map(item => (
         <li
           key={item}
-          onClick={() => onSelect(item)}
+          // onClick={() => onSelect(item)}
+          onClick={() => onSelect({ selected: item })}
           className={
             selected === item
               ? "w-75 list-group-item badge-light"

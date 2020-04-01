@@ -37,14 +37,14 @@ export async function getFilteredRecipes(req, res) {
 
     let prodInStockList = [];
     stock.products.forEach(product => {
-      prodInStockList.push(product.product_name);
+      if (product.quantity > 0) prodInStockList.push(product.product_name);
     });
 
     let recipes = await
       Recipe
         .find({ $expr: { $setIsSubset: ["$ingredientsList", prodInStockList] } }, { _id: 0 })
         .where(userSettings);
-    return (recipes.length > 1) ? res.send({ recipes }) : res.send([]);
+    return (recipes.length >= 1) ? res.send([...recipes]) : res.send([]);
   }
   catch (ex) {
     errorHandler(ex, 'getFilteredRecipes');

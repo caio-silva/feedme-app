@@ -90,11 +90,11 @@ export default class Form extends Component {
 
   renderInputCheckBox(name, label) {
     return (
-      <div className="row  mr-auto">
-        <div className="col-8">
-          <h3>{label}</h3>
+      <div className="d-flex flex-row justify-content-start align-items-center">
+        <div className="col-4 h-100 align-self-center">
+          <h3 className="mt-4">{label}</h3>
         </div>
-        <div className="col-4">
+        <div className="col-4 h-100 align-self-center">
           <label className="switch">
             <input
               type="checkbox"

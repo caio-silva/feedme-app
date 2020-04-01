@@ -5,7 +5,6 @@ import NavBar from './components/navBar';
 import Home from './components/home';
 import Profile from './components/profile';
 import Recipes from './components/recipes';
-import Recipe from './components/recipe';
 import Logout from './components/logout';
 import Dashboard from './components/dashboard';
 import NotFound from './components/notFound';
@@ -16,6 +15,7 @@ import 'normalize.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Products from './components/products';
+import Recipe from './components/recipe';
 
 export default class App extends Component {
   state = {};
@@ -40,7 +40,7 @@ export default class App extends Component {
           <ProtectedRoute exact path="/profile" component={Profile} />
           <Route exact path="/not-found" component={NotFound} />
           <Redirect exact from="/" to="/home" />
-          <Redirect to="/not-found" />
+          {/* <Redirect to="/not-found" /> */}
         </Switch>
       </React.Fragment>
     )

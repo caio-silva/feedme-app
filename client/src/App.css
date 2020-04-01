@@ -72,10 +72,15 @@ body {
   cursor: pointer;
 }
 .yScroll {
-  max-height: 100vh;
+  max-height: 80vh;
   overflow-y: scroll;
   background-color: #333;
   color: #1ebba3;
+}
+.proAHeader {
+  background-color: #333;
+  padding-bottom: 1rem;
+  z-index: 2;
 }
 .sideBar li:hover,
 .sideBar li:focus {
@@ -222,7 +227,9 @@ body {
 .switch-btn {
   width: 6rem;
   height: 3rem;
-  background-color: #e5e5e5;
+  /* background-color: #e5e5e5; */
+  background-color: #222;
+  border-radius: 20px;
   position: relative;
   transition: all 0.5s;
 }
@@ -233,6 +240,7 @@ body {
   width: 2.7rem;
   height: 2.6rem;
   background-color: #1ebba3;
+  border-radius: 50%;
   left: 0.2rem;
   top: 0.2rem;
   transition: all 0.5s;
@@ -240,10 +248,12 @@ body {
 
 input[type="checkbox"]:checked + .switch-btn:before {
   left: 3rem;
+  background-color: #222;
 }
 
 input[type="checkbox"]:checked + .switch-btn {
-  background: rgba(50, 255, 50, 0.7);
+  /* background: rgba(50, 255, 50, 0.7); */
+  background: #1ebba3;
 }
 
 /* --------- END FORMS --------- */

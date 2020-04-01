@@ -94,8 +94,11 @@ export default class Products extends Component {
       <div className="offset">
         <div className="container-fluid">
           <div className="row">
-            <div className="col" style={{ maxHeight: "50vh" }}>
-              <h1>In stock</h1>
+            <div className="col yScroll">
+              <div className="sticky-top proAHeader">
+                <h1>In stock</h1>
+              </div>
+
               {stock.length > 0 &&
                 stock.map(item => (
                   <ProductView
@@ -108,16 +111,18 @@ export default class Products extends Component {
                 ))}
             </div>
             <div className="col yScroll">
-              <h1>Products Available</h1>
-              <form className="form-inline my-2 sticky-top ml-auto">
-                <input
-                  className="form-control col-9"
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search"
-                  onChange={this.onChange}
-                />
-              </form>
+              <div className="sticky-top proAHeader">
+                <h1>Products Available</h1>
+                <form className="form-inline my-2 ml-auto">
+                  <input
+                    className="form-control col-9"
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+                    onChange={this.onChange}
+                  />
+                </form>
+              </div>
               {products.map(product => (
                 <ProductCartView
                   key={product.id}

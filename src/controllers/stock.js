@@ -15,7 +15,6 @@ export async function addToStock(req, res) {
   try {
     const quantityToAdd = parseInt(req.body.quantity || 1);
     let stock = await Stock.findOne({ userId: req.user._id });
-
     const productToAdd = await Product.findOne({ id: req.body.barcode });
     if (!productToAdd) return res.send(stock);
 
